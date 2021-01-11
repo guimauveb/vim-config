@@ -94,8 +94,8 @@ au BufNewFile,BufRead,BufReadPost *.config setlocal syntax=yaml
 " set Haskell file to use 2 spaces wide tab
 au BufNewFile,BufRead,BufReadPost *.hs setlocal shiftwidth=2 softtabstop=2 expandtab
 
-" Disable automatic '//' insertion when creating a new line after a single line comment in C and C++.
-au FileType h,hpp,hxx,c,cpp,cxx setlocal comments-=:// comments+=f://
+" Disable automatic '//' insertion when creating a new line after a single line comment in C, C++, JS, TS.
+au FileType h,hpp,hxx,c,cpp,cxx,js,ts setlocal comments-=:// comments+=f://
 
 " Formatters
 au FileType javascript setlocal formatprg=prettier
