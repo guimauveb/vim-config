@@ -86,17 +86,20 @@ au BufNewFile,BufRead,BufReadPost *.config setlocal syntax=yaml
 
 " Disable automatic '//' insertion when creating a new line after a single line comment in C, C++.
 au FileType h,hpp,hxx,c,cpp,cxx setlocal comments-=:// comments+=f://
+
 " Make Vim recognize *.tsx as typescriptreact files
 augroup SyntaxSettings
     autocmd!
     autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
 augroup END
 
+" Set ALE fixers
 let g:ale_fixers = {
       \ 'javascript': ['eslint'],
       \ 'typescript': ['eslint'],
       \ 'typescriptreact': ['eslint'],
       \ }
+
 " Enable auto-fix on save for ESLint
 let g:ale_fix_on_save = 1
 
@@ -141,3 +144,8 @@ autocmd BufWritePre * call TrimWhiteSpace()
 
 " Enable prettier auto-formatting on save (doesn't require '@format' mention)
 let g:prettier#autoformat_require_pragma = 0
+
+" Make sure Ctrl+P find all files
+let g:ctrlp_user_command =
+  \ ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
