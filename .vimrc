@@ -84,18 +84,20 @@ let g:lightline = {
 " Set AWS .config files to be interpreted as YAML files (which they are)
 au BufNewFile,BufRead,BufReadPost *.config setlocal syntax=yaml
 
-" Set Haskell file to use 2 spaces wide tab
-au BufNewFile,BufRead,BufReadPost *.hs setlocal shiftwidth=2 softtabstop=2 expandtab
-
 " Disable automatic '//' insertion when creating a new line after a single line comment in C, C++.
 au FileType h,hpp,hxx,c,cpp,cxx setlocal comments-=:// comments+=f://
+" Make Vim recognize *.tsx as typescriptreact files
+augroup SyntaxSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+augroup END
 
-" Enable auto-fix on save for ESLint
 let g:ale_fixers = {
       \ 'javascript': ['eslint'],
-      \ 'typescipt': ['eslint'],
+      \ 'typescript': ['eslint'],
       \ 'typescriptreact': ['eslint'],
       \ }
+" Enable auto-fix on save for ESLint
 let g:ale_fix_on_save = 1
 
 " Python highlighting
@@ -123,7 +125,7 @@ let g:cpp_attributes_highlight  = 1
 let g:cpp_member_highlight      = 1
 
 " Open NERDTree with Ctrl+D
-nmap <silent> <C-D> :NERDTreeToggle<CR><CR>
+nmap <silent> <C-D> :NERDTreeToggle<CR>
 
 " Run Black on save
 autocmd BufWritePre *.py execute ':silent!Black'
@@ -137,6 +139,5 @@ endfunction
 set list listchars=trail:.,extends:>
 autocmd BufWritePre * call TrimWhiteSpace()
 
-" Enable prettier auto-formatting on save
-let g:prettier#autoformat = 1
+" Enable prettier auto-formatting on save (doesn't require '@format' mention)
 let g:prettier#autoformat_require_pragma = 0
