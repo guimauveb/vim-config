@@ -95,13 +95,17 @@ augroup END
 
 " Set ALE fixers
 let g:ale_fixers = {
-      \ 'javascript': ['eslint'],
-      \ 'typescript': ['eslint'],
-      \ 'typescriptreact': ['eslint'],
+      \ 'javascript': ['eslint', 'prettier'],
+      \ 'typescript': ['eslint', 'prettier'],
+      \ 'typescriptreact': ['eslint', 'prettier'],
       \ }
 
 " Enable auto-fix on save for ESLint
 let g:ale_fix_on_save = 1
+let g:ale_typescript_prettier_use_local_config = 1
+
+" Enable prettier auto-formatting on save (doesn't require '@format' mention)
+let g:prettier#autoformat_require_pragma = 0
 
 " Python highlighting
 let g:python_version_2                          = 0
@@ -141,9 +145,6 @@ endfunction
 
 set list listchars=trail:.,extends:>
 autocmd BufWritePre * call TrimWhiteSpace()
-
-" Enable prettier auto-formatting on save (doesn't require '@format' mention)
-let g:prettier#autoformat_require_pragma = 0
 
 " Make sure Ctrl+P find all files
 let g:ctrlp_user_command =
