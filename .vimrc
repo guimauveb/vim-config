@@ -146,6 +146,9 @@ endfunction
 set list listchars=trail:.,extends:>
 autocmd BufWritePre * call TrimWhiteSpace()
 
+" Make CtrlP faster by ignoring some folders
+let g:ctrlp_custom_ignore = '\v[\/](__pycache__|node_modules)|(\.(swp|ico|git|svn))$'
+
 " The Silver Searcher
 if executable('ag')
   " Use Ag over grep
@@ -161,7 +164,7 @@ endif
 " Bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " Bind \ (backward slash) to grep shortcut
-command -nargs=+ -complete=file -bar Ag silent! grep! silent! <args>|cwindow|redraw!
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 " Map \ to :Ag
 nnoremap \ :Ag<SPACE>
 
