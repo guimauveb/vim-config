@@ -1,4 +1,4 @@
-" Default settings
+" Core settings
 set encoding=utf-8
 syntax on
 filetype plugin indent on
@@ -42,7 +42,7 @@ Plug 'preservim/nerdtree' |
       \ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'nbouscal/vim-stylish-haskell'
-
+Plug 'nvie/vim-flake8'
 call plug#end()
 
 " Ctlrp path
@@ -146,7 +146,20 @@ endfunction
 set list listchars=trail:.,extends:>
 autocmd BufWritePre * call TrimWhiteSpace()
 
-" Make sure Ctrl+P find all files
-let g:ctrlp_user_command =
-  \ ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" Make CtrlP faster by ignoring some folders
+let g:ctrlp_custom_ignore = '\v[\/](__pycache__|node_modules)|(\.(swp|ico|git|svn))$'
 
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
