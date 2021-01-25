@@ -43,6 +43,10 @@ Plug 'preservim/nerdtree' |
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'nbouscal/vim-stylish-haskell'
 Plug 'nvie/vim-flake8'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
+
 call plug#end()
 
 " Ctlrp path
@@ -149,22 +153,6 @@ autocmd BufWritePre * call TrimWhiteSpace()
 " Make CtrlP faster by ignoring some folders
 let g:ctrlp_custom_ignore = '\v[\/](__pycache__|node_modules)|(\.(swp|ico|git|svn))$'
 
-" The Silver Searcher
-if executable('ag')
-  " Use Ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use Ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " Ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
-" Bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-" Bind \ (backward slash) to grep shortcut
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-" Map \ to :Ag
-nnoremap \ :Ag<SPACE>
+" fzf
+source ~/.vim/after/fzf-config.vim
 
