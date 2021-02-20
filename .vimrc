@@ -1,8 +1,9 @@
 " Core settings
 set encoding=utf-8
-syntax on
-filetype plugin indent on
-
+" TODO - create a .vimrc for each project that will be read by exrc
+set exrc
+set relativenumber
+set hidden
 set noerrorbells
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -19,8 +20,12 @@ set undofile
 set incsearch
 set smartcase
 set shortmess=a
-
 set colorcolumn=116
+set scrolloff=8
+set updatetime=50
+
+syntax on
+filetype plugin indent on
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " Plugins
@@ -41,7 +46,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'preservim/nerdtree' |
       \ Plug 'Xuyuanp/nerdtree-git-plugin'
 " vim-prettier echoes the current line on :write on the commit following this one:
-" 4dfd561 Merge pull request #279 from yzia2000/273-fix-tsx-ft
+"   4dfd561 Merge pull request #279 from yzia2000/273-fix-tsx-ft
 " TODO - signal the issue
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'nbouscal/vim-stylish-haskell'
@@ -50,9 +55,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
-
-" Ctlrp path
-set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Term color
 set t_Co=256
