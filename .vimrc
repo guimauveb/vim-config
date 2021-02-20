@@ -40,12 +40,14 @@ Plug 'psf/black', { 'branch': 'stable' }
 Plug 'sheerun/vim-polyglot'
 Plug 'preservim/nerdtree' |
       \ Plug 'Xuyuanp/nerdtree-git-plugin'
+" vim-prettier echoes the current line on :write on the commit following this one:
+" 4dfd561 Merge pull request #279 from yzia2000/273-fix-tsx-ft
+" TODO - signal the issue
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'nbouscal/vim-stylish-haskell'
 Plug 'nvie/vim-flake8'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-rooter'
 
 call plug#end()
 
@@ -150,9 +152,5 @@ endfunction
 set list listchars=trail:.,extends:>
 autocmd BufWritePre * call TrimWhiteSpace()
 
-" Make CtrlP faster by ignoring some folders
-let g:ctrlp_custom_ignore = '\v[\/](__pycache__|node_modules)|(\.(swp|ico|git|svn))$'
-
 " fzf
 source ~/.vim/after/fzf-config.vim
-
