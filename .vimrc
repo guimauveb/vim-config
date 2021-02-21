@@ -60,6 +60,7 @@ Plug 'nvie/vim-flake8'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
+Plug 'machakann/vim-swap',
 
 call plug#end()
 
@@ -131,7 +132,8 @@ nmap <silent> <C-D> :NERDTreeToggle<CR>
 nmap <silent> <C-P> :FZF<CR>
 
 nnoremap <leader>gs :G<CR>
-nnoremap <leader>gc :GBranches<CR>
+nnoremap <leader>gb :GBranches<CR>
+nnoremap <leader>gc :Git Commit<CR>
 nnoremap <leader>rg :RG<CR>
 
 " Set AWS .config files to be interpreted as YAML files (which they are)
