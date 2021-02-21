@@ -1,3 +1,4 @@
+" Core settings
 set encoding=utf-8
 " TODO - create a .vimrc for each project that will be read by exrc
 set exrc
@@ -66,7 +67,6 @@ call plug#end()
 let g:gruvbox_contrast_dark = 'medium'
 colorscheme gruvbox
 
-let mapleader = " "
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ 'active': {
@@ -126,6 +126,7 @@ let g:python_highlight_file_headers_as_comments = 0
 let g:cpp_attributes_highlight  = 1
 let g:cpp_member_highlight      = 1
 
+let mapleader = " "
 nmap <silent> <C-D> :NERDTreeToggle<CR>
 nmap <silent> <C-P> :FZF<CR>
 
