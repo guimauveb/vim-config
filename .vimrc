@@ -1,4 +1,3 @@
-" Core settings
 set encoding=utf-8
 " TODO - create a .vimrc for each project that will be read by exrc
 set exrc
@@ -23,6 +22,12 @@ set shortmess=a
 set colorcolumn=116
 set scrolloff=8
 set updatetime=50
+" Status line
+set laststatus=2
+set noshowmode
+" Term color
+set t_Co=256
+set background=dark
 
 syntax on
 filetype plugin indent on
@@ -53,21 +58,15 @@ Plug 'nbouscal/vim-stylish-haskell'
 Plug 'nvie/vim-flake8'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'stsewd/fzf-checkout.vim'
 
 call plug#end()
-
-" Term color
-set t_Co=256
-set background=dark
 
 " Colorscheme
 let g:gruvbox_contrast_dark = 'medium'
 colorscheme gruvbox
 
-" Status line
-set laststatus=2
-set noshowmode
-
+let mapleader = " "
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ 'active': {
@@ -88,18 +87,6 @@ let g:lightline = {
       \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
       \ }
       \}
-
-" Set AWS .config files to be interpreted as YAML files (which they are)
-au BufNewFile,BufRead,BufReadPost *.config setlocal syntax=yaml
-
-" Disable automatic '//' insertion when creating a new line after a single line comment in C, C++.
-au FileType h,hpp,hxx,c,cpp,cxx setlocal comments-=:// comments+=f://
-
-" Make Vim recognize *.tsx as typescriptreact files
-augroup SyntaxSettings
-    autocmd!
-    autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
-augroup END
 
 " Set ALE fixers
 let g:ale_fixers = {
@@ -139,8 +126,24 @@ let g:python_highlight_file_headers_as_comments = 0
 let g:cpp_attributes_highlight  = 1
 let g:cpp_member_highlight      = 1
 
-" Open NERDTree with Ctrl+D
 nmap <silent> <C-D> :NERDTreeToggle<CR>
+nmap <silent> <C-P> :FZF<CR>
+
+nnoremap <leader>gs :G<CR>
+nnoremap <leader>gc :GBranches<CR>
+nnoremap <leader>rg :RG<CR>
+
+" Set AWS .config files to be interpreted as YAML files (which they are)
+au BufNewFile,BufRead,BufReadPost *.config setlocal syntax=yaml
+
+" Disable automatic '//' insertion when creating a new line after a single line comment in C, C++.
+au FileType h,hpp,hxx,c,cpp,cxx setlocal comments-=:// comments+=f://
+
+" Make Vim recognize *.tsx as typescriptreact files
+augroup SyntaxSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+augroup END
 
 " Run Black on save
 autocmd BufWritePre *.py execute ':silent!Black'
