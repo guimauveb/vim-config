@@ -1,1 +1,1 @@
-Vim personal config (.vimrc)
+Vim personal configuration.
