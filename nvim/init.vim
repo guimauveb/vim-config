@@ -22,7 +22,7 @@ set nowrap
 set smartcase
 set noswapfile
 set nobackup
-set undodir=~/.vim/undodir
+set undodir=~/.config/nvim/undodir
 set undofile
 set incsearch
 set smartcase
@@ -44,8 +44,7 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
 
-" gruvbox fork supposed to fix haskell highlighting problem
-Plug 'dkasak/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 Plug 'dense-analysis/ale'
 Plug 'vim-utils/vim-man'
 Plug 'lyuts/vim-rtags'
@@ -55,9 +54,6 @@ Plug 'psf/black', { 'branch': 'stable' }
 Plug 'sheerun/vim-polyglot'
 Plug 'preservim/nerdtree' |
       \ Plug 'Xuyuanp/nerdtree-git-plugin'
-" vim-prettier echoes the current line on :write on the commit following this one:
-"   4dfd561 Merge pull request #279 from yzia2000/273-fix-tsx-ft
-" TODO - signal the issue
 Plug 'neovimhaskell/haskell-vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'nvie/vim-flake8'
@@ -91,12 +87,11 @@ let g:ale_fixers = {
       \ 'typescriptreact': ['eslint', 'prettier'],
       \ 'rust': ['rustfmt'],
       \ }
-let g:ale_linters = {'rust': ['analyzer']}
-
+"
 " Enable auto-fix on save for ESLint
 let g:ale_fix_on_save = 1
 let g:ale_typescript_prettier_use_local_config = 1
-
+"
 " Enable prettier auto-formatting on save (doesn't require '@format' mention)
 let g:prettier#autoformat_require_pragma = 0
 
@@ -174,4 +169,3 @@ endfunction
 
 set list listchars=trail:.,extends:>
 autocmd BufWritePre * call TrimWhiteSpace()
-
