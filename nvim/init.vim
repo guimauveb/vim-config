@@ -45,7 +45,7 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'gruvbox-community/gruvbox'
-Plug 'dense-analysis/ale'
+Plug 'hrsh7th/nvim-compe'
 Plug 'vim-utils/vim-man'
 Plug 'lyuts/vim-rtags'
 Plug 'mbbill/undotree'
@@ -63,7 +63,6 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'machakann/vim-swap',
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
 Plug 'tjdevries/nlua.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'vim-airline/vim-airline'
