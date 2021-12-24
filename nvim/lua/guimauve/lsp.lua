@@ -1,5 +1,19 @@
 -- TODO - Organize code into files!
 local nvim_lsp = require("lspconfig")
+local lsp_installer = require("nvim-lsp-installer")
+
+-- Provide settings first!
+lsp_installer.settings {
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+}
+
+lsp_installer.on_server_ready(function (server) server:setup {} end)
 
 local format_async = function(err, _, result, _, bufnr)
     if err ~= nil or result == nil then return end
@@ -106,17 +120,6 @@ vim.g.vsnip_filetypes = {
     typescriptreact = {"typescript"}
 }
 
-require"compe".setup {
-    preselect = "always",
-    source = {
-        path = true,
-        buffer = true,
-        vsnip = true,
-        nvim_lsp = true,
-        nvim_lua = true
-    }
-}
-
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -134,24 +137,6 @@ end
 nvim_lsp.hls.setup{on_attach=on_attach}
 nvim_lsp.pyright.setup({on_attach=on_attach})
 
-nvim_lsp.rust_analyzer.setup{
-    on_attach=on_attach,
-    settings = {
-        ["rust-analyzer"] = {
-            assist = {
-                importMergeBehavior = "last",
-                importPrefix = "by_self",
-            },
-            cargo = {
-                loadOutDirsFromCheck = true
-            },
-            procMacro = {
-                enable = true
-            },
-        }
-    }
-}
-
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
         virtual_text = false,
@@ -167,4 +152,18 @@ vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
 vim.api.nvim_set_keymap("n", "gn", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "gp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", {noremap = true, silent = true})
 
+require"compe".setup {
+    preselect = "always",
+    source = {
+        path = true,
+        buffer = true,
+        vsnip = true,
+        nvim_lsp = true,
+        nvim_lua = true
+    }
+}
 
+-- Start rust_analyzer with neovim when opening *.rs files
+require('lspconfig').rust_analyzer.setup {
+    on_attach = rust_analyzer_on_attach
+}
