@@ -44,30 +44,56 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'gruvbox-community/gruvbox'
+" Collection of common configurations for the Nvim LSP client
+Plug 'neovim/nvim-lspconfig'
+
+" Automatically install language servers
+Plug 'williamboman/nvim-lsp-installer'
+
+" Completion framework
 Plug 'hrsh7th/nvim-compe'
+
+" Snippet engine
+"Plug 'hrsh7th/vim-vsnip'
+
+" Fuzzy finder
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+" Colorscheme
+Plug 'gruvbox-community/gruvbox'
+
 Plug 'vim-utils/vim-man'
 Plug 'lyuts/vim-rtags'
+
 Plug 'mbbill/undotree'
+
+" Git helper
 Plug 'tpope/vim-fugitive'
-Plug 'psf/black', { 'branch': 'stable' }
+
+" Colorschemes for pretty much all languages
 Plug 'sheerun/vim-polyglot'
 Plug 'preservim/nerdtree' |
       \ Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" Language specific
+Plug 'rust-lang/rust.vim'
 Plug 'neovimhaskell/haskell-vim'
+
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'nvie/vim-flake8'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
 Plug 'machakann/vim-swap',
-Plug 'neovim/nvim-lspconfig'
 Plug 'tjdevries/nlua.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
+
+" Custom status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'neovimhaskell/haskell-vim'
+
 
 call plug#end()
 
@@ -77,22 +103,6 @@ colorscheme gruvbox
 
 " Lua modules
 lua require("guimauve")
-
-" ALE configuration
-let g:airline#extensions#tabline#enabled = 1
-let g:ale_fixers = {
-      \ 'javascript': ['eslint', 'prettier'],
-      \ 'typescript': ['eslint', 'prettier'],
-      \ 'typescriptreact': ['eslint', 'prettier'],
-      \ 'rust': ['rustfmt'],
-      \ }
-"
-" Enable auto-fix on save for ESLint
-let g:ale_fix_on_save = 1
-let g:ale_typescript_prettier_use_local_config = 1
-"
-" Enable prettier auto-formatting on save (doesn't require '@format' mention)
-let g:prettier#autoformat_require_pragma = 0
 
 " Python highlighting
 let g:python_version_2                          = 0
@@ -137,8 +147,6 @@ let g:haskell_indent_do = 3
 let g:haskell_indent_in = 1
 let g:haskell_indent_guard = 2
 
-
-
 let mapleader = " "
 nmap <silent> <C-D> :NERDTreeToggle<CR>
 
@@ -148,8 +156,11 @@ nnoremap <leader>gs :G<CR>
 " Set AWS .config files to be interpreted as YAML files (which they are)
 au BufNewFile,BufRead,BufReadPost *.config setlocal syntax=yaml
 
-" Disable automatic '//' insertion when creating a new line after a single line comment in C, C++.
-au FileType h,hpp,hxx,c,cpp,cxx setlocal comments-=:// comments+=f://
+" Format Rust code on save
+let g:rustfmt_autosave = 1
+
+" Disable automatic '//' insertion when creating a new line after a single line comment.
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 " Make Vim recognize *.tsx as typescriptreact files
 augroup SyntaxSettings
@@ -157,14 +168,10 @@ augroup SyntaxSettings
     autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
 augroup END
 
-" Run Black on save
-autocmd BufWritePre *.py execute ':silent!Black'
-
 " Removes trailing spaces (run on save)
-function TrimWhiteSpace()
-  silent! %s/\s*$//
-  ''
-endfunction
+" function TrimWhiteSpace()
+"   silent! %s/\s*$//
+"   ''
+" endfunction
 
 set list listchars=trail:.,extends:>
-autocmd BufWritePre * call TrimWhiteSpace()
