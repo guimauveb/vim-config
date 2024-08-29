@@ -225,6 +225,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	pattern = "*.toml",
+	callback = function()
+		vim.cmd("set ts=2 sts=2 sw=2 expandtab")
+	end,
+})
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
