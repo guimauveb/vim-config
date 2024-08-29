@@ -1,1 +1,1 @@
-Vim personal configuration.
+## neovim personal configuration
